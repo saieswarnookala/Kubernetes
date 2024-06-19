@@ -53,7 +53,10 @@ sudo apt-mark hold kubelet kubeadm kubectl
 #(Optional) Enable the kubelet service before running kubeadm:
 sudo systemctl enable --now kubelet
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+sleep 30
+# installing pod network kube fannel
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+sleep 20
 kubectl create ns kube-flannel
 kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
 helm repo add flannel https://flannel-io.github.io/flannel/
