@@ -47,9 +47,17 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sleep 60
-sudo apt-get install -y kubelet='1.29.0.1-1' kubectl='1.29.0.1-1' kubectl='1.29.0.1-1'
+sudo apt-get install -y kubelet kubeadm kubectl
 sleep 100
 sudo apt-mark hold kubelet kubeadm kubectl
 #(Optional) Enable the kubelet service before running kubeadm:
 sudo systemctl enable --now kubelet
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+kubectl create ns kube-flannel
+kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
+helm repo add flannel https://flannel-io.github.io/flannel/
+helm install flannel --set podCidr="10.244.0.0/16" --namespace kube-flannel flannel/flannel
+mkdir -p /opt/cni/bin
+curl -O -L https://github.com/containernetworking/plugins/releases/download/v1.2.0/cni-plugins-linux-amd64-v1.2.0.tgz
+tar -C /opt/cni/bin -xzf cni-plugins-linux-amd64-v1.2.0.tgz
