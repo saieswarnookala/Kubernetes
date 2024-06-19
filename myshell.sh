@@ -32,9 +32,9 @@ sudo chmod 777 /etc/containerd/
     sudo mkdir -p /etc/containerd
     containerd config default | sed 's/SystemdCgroup = false/SystemdCgroup = true/' | sudo tee /etc/containerd/config.toml
 }
-#echo "[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-#  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-#    SystemdCgroup = true" > /etc/containerd/config.toml
+echo "[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true" > /etc/containerd/config.toml
 sudo systemctl restart containerd
 sudo apt-get update
 sleep 10
