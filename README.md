@@ -38,7 +38,8 @@ To get started with setting up your Kubernetes cluster, ensure you have the foll
 ### Prerequisites
 
 - At least two Linux machines (one master and one worker node)
-- [Kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Container Runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
+- [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Kube-Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)
