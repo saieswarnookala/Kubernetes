@@ -139,7 +139,7 @@ Contributions are welcome! If you have any examples or improvements to add, plea
 
 ## License
 
-This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+
 ```
 This `README.md` provides a detailed overview of your project and guides users through the initial setup and future plans for enhancements. Feel free to modify it further to better fit your project's specific details and instructions.
 ```
