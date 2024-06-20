@@ -1,4 +1,3 @@
-```markdown
 # Kubernetes Examples and Configurations
 
 Welcome to the Kubernetes repository! This repository contains various Kubernetes examples and configurations that I have created and used in my projects. These examples are designed to help you understand and deploy Kubernetes resources effectively.
@@ -39,7 +38,7 @@ Clone this repository to your local machine:
 ```sh
 git clone https://github.com/saieswarnookala/Kubernetes.git
 cd Kubernetes
-```
+
 
 ## Examples
 
