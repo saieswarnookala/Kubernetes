@@ -96,6 +96,7 @@ Kube-Flannel is used for pod networking. The Flannel configuration is deployed a
 ## Monitoring
 
 ### Prometheus
+![prometheus](https://github.com/saieswarnookala/Kubernetes/assets/108252839/e60b132d-20df-4ee8-86f4-24d4cbe1ea4d)
 
 Prometheus is used for monitoring the Kubernetes cluster. Follow these steps to set up Prometheus:
 #### Set up Manually 
@@ -142,4 +143,4 @@ This repository is licensed under the MIT License. See the [LICENSE](LICENSE) fi
 ```
 This `README.md` provides a detailed overview of your project and guides users through the initial setup and future plans for enhancements. Feel free to modify it further to better fit your project's specific details and instructions.
 ```
-![prometheus](https://github.com/saieswarnookala/Kubernetes/assets/108252839/e60b132d-20df-4ee8-86f4-24d4cbe1ea4d)
+
