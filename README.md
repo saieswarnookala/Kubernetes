@@ -17,8 +17,8 @@ Welcome to the Kubernetes Cluster Setup repository! This repository contains con
 - [Networking](#networking)
 - [Monitoring](#monitoring)
   - [Prometheus](#prometheus)
-    - [Set up Manually](#set-up-manually)
-    - [set up using shell script](#set-up-using-shell-script)
+    - [Set Up Manually](#set-up-manually)
+    - [Set Up Using Shell Script](#set-up-using-shell-script)
   - [Grafana (Future)](#grafana-future)
 - [Authentication](#authentication)
   - [LDAP (Future)](#ldap-future)
@@ -113,7 +113,7 @@ Prometheus is used for monitoring the Kubernetes cluster. Follow these steps to 
    ```sh
    kubectl get pods -l "release=prometheus"
    ```
-#### set up using shell script
+#### Set Up Using Shell Script
    ```sh
    . prometheus.sh
    ```
