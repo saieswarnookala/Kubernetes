@@ -2,6 +2,9 @@
 
 Welcome to the Kubernetes Cluster Setup repository! This repository contains configurations and scripts to set up a Kubernetes cluster using Kubeadm, Kube-Flannel for pod networking, and integration with Prometheus for monitoring. Future enhancements will include adding Grafana for visualization and LDAP for authentication.
 
+![architecture_block_diagram](https://github.com/saieswarnookala/Kubernetes/assets/108252839/809323b0-bdd6-4432-bedd-77fec8ecc84e)
+
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -26,6 +29,7 @@ Welcome to the Kubernetes Cluster Setup repository! This repository contains con
 ## Introduction
 
 This repository provides a comprehensive guide to set up a Kubernetes cluster using Kubeadm and Kube-Flannel for pod networking. It also includes integration with Prometheus for monitoring the cluster. Future plans include adding Grafana for data visualization and LDAP for centralized authentication.
+![K8s](https://github.com/saieswarnookala/Kubernetes/assets/108252839/1edcfae6-182c-4fdb-bb92-cbf63bc04270)
 
 ## Getting Started
 
@@ -136,6 +140,6 @@ Contributions are welcome! If you have any examples or improvements to add, plea
 
 This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 ```
-
 This `README.md` provides a detailed overview of your project and guides users through the initial setup and future plans for enhancements. Feel free to modify it further to better fit your project's specific details and instructions.
+```
 ![prometheus](https://github.com/saieswarnookala/Kubernetes/assets/108252839/e60b132d-20df-4ee8-86f4-24d4cbe1ea4d)
