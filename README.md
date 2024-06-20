@@ -1,87 +1,126 @@
-# Kubernetes Examples and Configurations
+# Kubernetes Cluster Setup with Kubeadm, Kube-Flannel, Prometheus, Grafana, and LDAP
 
-Welcome to the Kubernetes repository! This repository contains various Kubernetes examples and configurations that I have created and used in my projects. These examples are designed to help you understand and deploy Kubernetes resources effectively.
+Welcome to the Kubernetes Cluster Setup repository! This repository contains configurations and scripts to set up a Kubernetes cluster using Kubeadm, Kube-Flannel for pod networking, and integration with Prometheus for monitoring. Future enhancements will include adding Grafana for visualization and LDAP for authentication.
 
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
-- [Examples](#examples)
-  - [Deployments](#deployments)
-  - [Services](#services)
-  - [Persistent Volumes](#persistent-volumes)
-  - [ConfigMaps and Secrets](#configmaps-and-secrets)
-  - [StatefulSets](#statefulsets)
-  - [Ingress](#ingress)
+- [Cluster Setup](#cluster-setup)
+  - [Initialize Master Node](#initialize-master-node)
+    - [Manually](#manually)
+    - [Using shell script](#using-shell-script)
+  - [Join Worker Nodes](#join-worker-nodes)
+- [Networking](#networking)
+- [Monitoring](#monitoring)
+  - [Prometheus](#prometheus)
+    - [Set up Manually](#set-up-manually)
+    - [set up using shell script](#set-up-using-shell-script)
+  - [Grafana (Future)](#grafana-future)
+- [Authentication](#authentication)
+  - [LDAP (Future)](#ldap-future)
 - [Best Practices](#best-practices)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Introduction
 
-This repository includes various Kubernetes configurations that I have developed and used throughout my career as a Senior Kubernetes Engineer. These examples aim to provide practical, real-world scenarios to help you get started with Kubernetes and improve your cluster management skills.
+This repository provides a comprehensive guide to set up a Kubernetes cluster using Kubeadm and Kube-Flannel for pod networking. It also includes integration with Prometheus for monitoring the cluster. Future plans include adding Grafana for data visualization and LDAP for centralized authentication.
 
 ## Getting Started
 
-To get started with these examples, you need to have a Kubernetes cluster up and running. You can use any Kubernetes provider such as Minikube, Kind, or a cloud provider like AWS, GCP, or DigitalOcean.
+To get started with setting up your Kubernetes cluster, ensure you have the following prerequisites:
 
 ### Prerequisites
 
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
-- A running Kubernetes cluster
-- [Helm](https://helm.sh/) (for some examples)
+- At least two Linux machines (one master and one worker node)
+- [Kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Kube-Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)
 
 ### Installation
 
+
+## Cluster Setup
+### Initialize Master Node 
+#### Manually
+Follow the steps below to initialize the master node:
+
+1. **Initialize the Kubernetes master:**
+```
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+```
+
+2. **Set up local kubeconfig:**
+
+   ```sh
+   mkdir -p $HOME/.kube
+   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   sudo chown $(id -u):$(id -g) $HOME/.kube/config
+   ```
+
+3. **Deploy Kube-Flannel network:**
+
+   ```sh
+   kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+   ```
+#### Using shell script
 Clone this repository to your local machine:
 
 ```sh
 git clone https://github.com/saieswarnookala/Kubernetes.git
 cd Kubernetes
+```
+For automating the setup just run below scripts which includes complete setup of master node
+```
+. k8s_cluster.sh
 
+```
+### Join Worker Nodes
 
-## Examples
+On each worker node, run the command provided by `kubeadm init` on the master node. It looks similar to this:
 
-### Deployments
+```sh
+sudo kubeadm join <master-node-ip>:6443 --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+```
 
-Example YAML files for Kubernetes Deployments. Deployments manage the desired state of your application by creating and updating instances of your application.
+## Networking
 
-- [Nginx Deployment](examples/deployments/nginx-deployment.yaml)
-- [Node.js Deployment](examples/deployments/nodejs-deployment.yaml)
+Kube-Flannel is used for pod networking. The Flannel configuration is deployed as part of the master node initialization.
 
-### Services
+## Monitoring
 
-Example YAML files for Kubernetes Services. Services provide a stable network endpoint for accessing your applications.
+### Prometheus
 
-- [ClusterIP Service](examples/services/clusterip-service.yaml)
-- [NodePort Service](examples/services/nodeport-service.yaml)
-- [LoadBalancer Service](examples/services/loadbalancer-service.yaml)
+Prometheus is used for monitoring the Kubernetes cluster. Follow these steps to set up Prometheus:
+#### Set up Manually 
+1. **Deploy Prometheus using Helm:**
 
-### Persistent Volumes
+   ```sh
+   helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+   helm repo update
+   helm install prometheus prometheus-community/prometheus
+   ```
 
-Example YAML files for Persistent Volumes and Persistent Volume Claims. These examples demonstrate how to configure storage for your applications.
+2. **Verify Prometheus installation:**
 
-- [Persistent Volume](examples/persistent-volumes/pv.yaml)
-- [Persistent Volume Claim](examples/persistent-volumes/pvc.yaml)
+   ```sh
+   kubectl get pods -l "release=prometheus"
+   ```
+#### set up using shell script
+   ```sh
+   . prometheus.sh
+   ```
+### Grafana (Future)
 
-### ConfigMaps and Secrets
+Grafana will be added in future updates to provide enhanced data visualization capabilities.
 
-Example YAML files for ConfigMaps and Secrets. These resources provide a way to manage configuration data and sensitive information.
+## Authentication
 
-- [ConfigMap](examples/configmaps/configmap.yaml)
-- [Secret](examples/secrets/secret.yaml)
+### LDAP (Future)
 
-### StatefulSets
-
-Example YAML files for StatefulSets. StatefulSets are used for stateful applications that require persistent storage and stable network identities.
-
-- [StatefulSet](examples/statefulsets/statefulset.yaml)
-
-### Ingress
-
-Example YAML files for Ingress resources. Ingress manages external access to your services, typically HTTP.
-
-- [Ingress](examples/ingress/ingress.yaml)
+LDAP integration will be added in future updates to provide centralized authentication and authorization.
 
 ## Best Practices
 
@@ -98,6 +137,5 @@ Contributions are welcome! If you have any examples or improvements to add, plea
 This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 ```
 
-This `README.md` provides a comprehensive overview of your repository, making it easy for others to understand and use your Kubernetes configurations and examples. Feel free to modify it to suit your specific needs and preferences.
-
+This `README.md` provides a detailed overview of your project and guides users through the initial setup and future plans for enhancements. Feel free to modify it further to better fit your project's specific details and instructions.
 ![prometheus](https://github.com/saieswarnookala/Kubernetes/assets/108252839/e60b132d-20df-4ee8-86f4-24d4cbe1ea4d)
